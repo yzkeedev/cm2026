@@ -1,0 +1,335 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* 冷却色调 - 2026火年需要静心 */
+    --background: 180 30% 94%;
+    --foreground: 210 29% 24%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 29% 24%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 29% 24%;
+    --primary: 182 24% 38%;       /* 石青 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 180 20% 90%;      /* 月白 */
+    --secondary-foreground: 210 29% 24%;
+    --muted: 180 20% 90%;
+    --muted-foreground: 210 20% 45%;
+    --accent: 210 29% 24%;        /* 墨色 */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 180 15% 80%;
+    --input: 180 15% 80%;
+    --ring: 182 24% 38%;
+    --radius: 0.75rem;
+
+    /* 特殊颜色 - 水火平衡 */
+    --water: 195 70% 70%;         /* 浅蓝 - 水色系 */
+    --fire: 15 80% 55%;           /* 火红色 */
+  }
+
+  /* 暗色模式支持 */
+  .dark {
+    --background: 210 20% 15%;
+    --foreground: 180 15% 92%;
+    --card: 210 20% 18%;
+    --card-foreground: 180 15% 92%;
+    --primary: 182 35% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 15% 25%;
+    --muted: 210 15% 25%;
+    --accent: 180 10% 85%;
+    --border: 210 15% 30%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  /* Focus states for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+
+  /* 减少动画偏好支持 */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* 冷却色系 */
+  .text-water {
+    color: hsl(var(--water));
+  }
+  .bg-water {
+    background-color: hsl(var(--water));
+  }
+  .text-fire {
+    color: hsl(var(--fire));
+  }
+  .bg-fire {
+    background-color: hsl(var(--fire));
+  }
+  .from-water {
+    background-image: linear-gradient(to right, hsl(var(--water)), hsl(var(--water) / 0.8));
+  }
+  .to-water {
+    background-image: linear-gradient(to right, hsl(var(--water) / 0.8), hsl(var(--water)));
+  }
+}
+
+/* Custom scrollbar for Chinese aesthetic */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--secondary));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
+
+/* Ink wash background effect */
+.ink-wash-bg {
+  background: linear-gradient(135deg,
+    hsl(var(--background)) 0%,
+    hsl(var(--secondary)) 50%,
+    hsl(var(--background)) 100%
+  );
+}
+
+/* Chinese pattern overlay */
+.chinese-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L30 60M0 30L60 30' stroke='%234A7C7E' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
+}
+
+/* Breathing animation for meditation */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* Fortune card flip */
+.flip-card {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Shake animation for fortune stick */
+@keyframes shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+
+.animate-shake {
+  animation: shake 0.3s ease-in-out 3;
+}
+
+/* Staggered fade in */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* AI Analysis Content Styles - New Chinese Style */
+.ai-content {
+  font-family: 'Noto Serif SC', 'Songti SC', serif;
+  line-height: 1.9;
+  color: #1a1a2e;
+}
+
+.ai-content h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #18243a;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #d4af37;
+  letter-spacing: 0.15em;
+}
+
+.ai-content h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #18243a;
+  margin-top: 1.75rem;
+  margin-bottom: 1rem;
+  padding-left: 0.75rem;
+  border-left: 4px solid #d4af37;
+  letter-spacing: 0.1em;
+}
+
+.ai-content h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d4a6f;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.ai-content p {
+  margin-bottom: 0.875rem;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.ai-content ul, .ai-content ol {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.ai-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.8;
+  list-style-type: disc;
+}
+
+.ai-content li::marker {
+  color: #d4af37;
+}
+
+.ai-content strong {
+  color: #18243a;
+  font-weight: 600;
+  background: linear-gradient(to bottom, transparent 60%, rgba(212, 175, 55, 0.2) 60%);
+}
+
+.ai-content em {
+  color: #4a6fa5;
+  font-style: normal;
+  border-bottom: 1px dashed #4a6fa5;
+}
+
+/* Tables in AI content */
+.ai-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.ai-content th {
+  background: linear-gradient(135deg, #18243a 0%, #2d4a6f 100%);
+  color: #fff;
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.ai-content td {
+  padding: 0.625rem 0.5rem;
+  border-bottom: 1px solid #e8e4dc;
+  background: #fafaf8;
+}
+
+.ai-content tr:last-child td {
+  border-bottom: none;
+}
+
+.ai-content tr:nth-child(even) td {
+  background: #f5f3ef;
+}
+
+.ai-content tr:hover td {
+  background: #efeadd;
+}
+
+/* Checkmark items */
+.ai-content .checkmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ai-content .checkmark::before {
+  content: "✓";
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.ai-content .cross {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ai-content .cross::before {
+  content: "⚠";
+  color: #f59e0b;
+}

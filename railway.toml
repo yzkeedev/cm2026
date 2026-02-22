@@ -1,0 +1,10 @@
+[project]
+name = "cm2026-fortune"
+
+[build]
+builder = "docker"
+buildCommand = "npm run build"
+startCommand = "npm start"
+
+[deploy]
+numReplicas = 1
