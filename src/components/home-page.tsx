@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useEffect, useState, useMemo } from "react"
 import { getCurrentDayGanzhi, getBazi, calculateEnergyScore, getNayin, getStemWuxing, getZodiac, isTaiSui } from "@/lib/bazi"
@@ -434,6 +435,89 @@ export default function HomePage() {
           </p>
         </motion.div>
       )}
+
+      {/* Quick Navigation */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mt-4"
+      >
+        <p className="text-xs font-medium text-accent mb-2">探索更多 Explore More</p>
+        <div className="grid grid-cols-4 gap-2">
+          <Link href="/bazi">
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="bg-gradient-to-br from-primary/90 to-water/80 rounded-lg p-2 text-white text-center cursor-pointer shadow-sm"
+            >
+              <span className="text-xl block">八字</span>
+              <span className="text-[8px] opacity-70">Bazi</span>
+            </motion.div>
+          </Link>
+          <Link href="/tarot">
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg p-2 text-white text-center cursor-pointer shadow-sm"
+            >
+              <span className="text-xl block">塔罗</span>
+              <span className="text-[8px] opacity-70">Tarot</span>
+            </motion.div>
+          </Link>
+          <Link href="/iching">
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg p-2 text-white text-center cursor-pointer shadow-sm"
+            >
+              <span className="text-xl block">易经</span>
+              <span className="text-[8px] opacity-70">I Ching</span>
+            </motion.div>
+          </Link>
+          <Link href="/astrology">
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg p-2 text-white text-center cursor-pointer shadow-sm"
+            >
+              <span className="text-xl block">占星</span>
+              <span className="text-[8px] opacity-70">Astrology</span>
+            </motion.div>
+          </Link>
+        </div>
+        <div className="grid grid-cols-3 gap-2 mt-2">
+          <Link href="/numerology">
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg p-2 text-white text-center cursor-pointer shadow-sm"
+            >
+              <span className="text-lg block">灵数</span>
+              <span className="text-[8px] opacity-70">Numerology</span>
+            </motion.div>
+          </Link>
+          <Link href="/wuxing">
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg p-2 text-white text-center cursor-pointer shadow-sm"
+            >
+              <span className="text-lg block">五行</span>
+              <span className="text-[8px] opacity-70">Wuxing</span>
+            </motion.div>
+          </Link>
+          <Link href="/fortune">
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="bg-gradient-to-br from-rose-500 to-pink-600 rounded-lg p-2 text-white text-center cursor-pointer shadow-sm"
+            >
+              <span className="text-lg block">抽签</span>
+              <span className="text-[8px] opacity-70">Fortune</span>
+            </motion.div>
+          </Link>
+        </div>
+      </motion.div>
     </div>
   )
 }
