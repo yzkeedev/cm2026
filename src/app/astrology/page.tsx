@@ -11,6 +11,7 @@ import {
   type ZodiacSign,
   type AstrologyChart,
 } from "@/lib/astrology"
+import { useBirthDate } from "@/hooks/useBirthDate"
 
 type SavedProfile = {
   id: string
@@ -200,7 +201,16 @@ function SignDetail({ sign }: { sign: ZodiacSign }) {
 }
 
 export default function AstrologyPage() {
-  const [birthDate, setBirthDate] = useState("1990-01-01")
+  const { birthDate, setBirthDate, isLoaded } = useBirthDate()
+
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen pb-20 md:pb-4 pt-2 px-3 md:px-4 flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
+      </div>
+    )
+  }
+
   const [birthTime, setBirthTime] = useState("")
   const [birthLocation, setBirthLocation] = useState("")
   const [savedProfiles, setSavedProfiles] = useState<SavedProfile[]>([])

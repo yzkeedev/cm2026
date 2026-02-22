@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { getNumerologyReading, NUMEROLOGY_MEANINGS, type NumerologyReading } from "@/lib/numerology"
+import { useBirthDate } from "@/hooks/useBirthDate"
 
 type TabType = 'overview' | 'lifePath' | 'expression' | 'soulUrge' | 'personality' | 'birthday'
 
@@ -179,7 +180,16 @@ function DetailCard({
 }
 
 export default function NumerologyPage() {
-  const [birthDate, setBirthDate] = useState("1990-01-01")
+  const { birthDate, setBirthDate, isLoaded } = useBirthDate()
+
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen pb-20 md:pb-4 pt-2 px-3 md:px-4 flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
+      </div>
+    )
+  }
+
   const [name, setName] = useState("")
   const [showResult, setShowResult] = useState(false)
   const [reading, setReading] = useState<NumerologyReading | null>(null)

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { getBazi, getZodiac, isTaiSui, getNayin, getTaiSuiRemedies, getMeihuaHexagram, getBaGuaEarlyHeaven, getLifePathNumber, LIFE_PATH_MEANINGS, type BaziData } from "@/lib/bazi"
+import { useBirthDate } from "@/hooks/useBirthDate"
 
 const TIME_BRANCHES = ['未知', '子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
 const TIME_INFO: Record<string, { zh: string; en: string }> = {
@@ -411,9 +412,16 @@ function StructuredAnalysis({ data }: { data: BaziAnalysis }) {
 }
 
 export default function BaziPage() {
-  const [birthDate, setBirthDate] = useState("1990-01-01")
-  const [timeBranch, setTimeBranch] = useState("子")
-  const [gender, setGender] = useState("男")
+  const { birthDate, setBirthDate, timeBranch, setTimeBranch, gender, setGender, isLoaded } = useBirthDate()
+
+  // Show loading state until we've loaded from localStorage
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen pb-20 md:pb-4 pt-2 px-3 md:px-4 flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
+      </div>
+    )
+  }
   const [savedProfiles, setSavedProfiles] = useState<SavedProfile[]>([])
   const [showProfiles, setShowProfiles] = useState(false)
   const [bazi, setBazi] = useState<BaziData | null>(null)

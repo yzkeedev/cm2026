@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { DM_Mono } from "next/font/google"
 import "./globals.css"
 import { Navigation } from "@/components/navigation"
+import { Providers } from "@/components/providers"
 
 const mono = DM_Mono({
   subsets: ["latin"],
@@ -29,11 +30,15 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen ink-wash-bg font-sans">
-        <div className="chinese-pattern fixed inset-0 pointer-events-none z-0" />
-        <div className="relative z-10">
-          {children}
-          <Navigation />
-        </div>
+        <Providers>
+          <div className="chinese-pattern fixed inset-0 pointer-events-none z-0" />
+          <div className="relative z-10">
+            <div className="max-w-4xl mx-auto">
+              {children}
+            </div>
+            <Navigation />
+          </div>
+        </Providers>
       </body>
     </html>
   )
