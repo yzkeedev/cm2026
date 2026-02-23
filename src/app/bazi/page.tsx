@@ -676,7 +676,7 @@ export default function BaziPage() {
                 onClick={() => setShowProfiles(!showProfiles)}
                 className="w-full bg-white rounded-xl p-3 shadow-sm border border-secondary flex items-center justify-between"
               >
-                <span className="text-sm text-accent">📂 Saved / 已保存 ({savedProfiles.length})</span>
+                <span className="text-sm text-accent">📂 已保存 ({savedProfiles.length})</span>
                 <span className="text-muted-foreground text-xs">▼</span>
               </button>
               {showProfiles && (
@@ -706,7 +706,7 @@ export default function BaziPage() {
 
           {/* Date & Gender Row */}
           <div className="bg-white rounded-xl p-4 shadow-sm border border-secondary">
-            <label className="block text-xs font-medium text-accent mb-2">Birth Date / 出生日期</label>
+            <label className="block text-xs font-medium text-accent mb-2">出生日期 (Birth Date)</label>
             <input
               type="date"
               value={birthDate}
@@ -722,7 +722,7 @@ export default function BaziPage() {
               className="w-full p-2 text-sm border border-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-muted"
             />
             <div className="flex gap-2 mt-3">
-              <label className="text-xs font-medium text-accent shrink-0">Gender / 性别</label>
+              <label className="text-xs font-medium text-accent shrink-0">性别 (Gender)</label>
               <div className="flex gap-2">
                 {['男', '女'].map((g) => (
                   <button
@@ -743,7 +743,7 @@ export default function BaziPage() {
 
           {/* Time Branch Selection */}
           <div className="bg-white rounded-xl p-3 shadow-sm border border-secondary">
-            <label className="block text-xs font-medium text-accent mb-2">Birth Hour / 出生时辰 (Optional)</label>
+            <label className="block text-xs font-medium text-accent mb-2">出生时辰 (Birth Hour)</label>
             <div className="grid grid-cols-4 gap-1.5">
               {TIME_BRANCHES.map((branch) => (
                 <button
@@ -772,7 +772,7 @@ export default function BaziPage() {
             onClick={handleCalculate}
             className="w-full py-3 bg-primary text-white rounded-xl font-medium shadow-md"
           >
-            Generate Chart / 开始排盘
+            开始排盘 (Generate)
           </motion.button>
         </motion.div>
       ) : (
@@ -809,13 +809,13 @@ export default function BaziPage() {
                   <div className="bg-white rounded-xl p-4 shadow-sm border border-secondary text-center">
                     <div className="flex items-center justify-center gap-4">
                       <div>
-                        <p className="text-muted-foreground text-xs">Zodiac / 生肖</p>
+                        <p className="text-muted-foreground text-xs">生肖 (Zodiac)</p>
                         <p className="font-serif text-3xl text-primary">{zodiac}</p>
                         <p className="text-xs text-muted-foreground">{westernZodiac}</p>
                       </div>
                       <div className="h-12 w-px bg-secondary" />
                       <div>
-                        <p className="text-muted-foreground text-xs">Gender / 性别</p>
+                        <p className="text-muted-foreground text-xs">性别 (Gender)</p>
                         <p className="font-serif text-2xl text-primary">{gender}</p>
                       </div>
                     </div>
@@ -834,10 +834,10 @@ export default function BaziPage() {
                   <div className="bg-gradient-to-br from-primary to-primary/80 rounded-xl p-4 text-white">
                     <div className="grid grid-cols-4 gap-1 text-center">
                       {[
-                        { label: 'Year / 年', value: bazi.year },
-                        { label: 'Month / 月', value: bazi.month },
-                        { label: 'Day / 日', value: bazi.day },
-                        { label: 'Hour / 时', value: bazi.time },
+                        { label: '年 (Year)', value: bazi.year },
+                        { label: '月 (Month)', value: bazi.month },
+                        { label: '日 (Day)', value: bazi.day },
+                        { label: '时 (Hour)', value: bazi.time },
                       ].map((col, i) => (
                         <div key={col.label}>
                           <p className="text-white/60 text-[10px]">{col.label}</p>
@@ -877,10 +877,10 @@ export default function BaziPage() {
                   {/* Day Master Analysis */}
                   {dayMaster && (
                     <div className="bg-white rounded-xl p-4 shadow-sm border border-secondary">
-                      <h3 className="font-serif text-lg text-accent mb-3">Day Master / 日主分析</h3>
+                      <h3 className="font-serif text-lg text-accent mb-3">日主分析 (Day Master)</h3>
                       <div className="space-y-2">
                         <div className="flex justify-between">
-                          <span className="text-xs text-muted-foreground">Element / 五行:</span>
+                          <span className="text-xs text-muted-foreground">五行 (Element):</span>
                           <span className="text-xs font-medium text-primary">{dayMaster.element}</span>
                         </div>
                         <div className="flex justify-between">
@@ -902,7 +902,7 @@ export default function BaziPage() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="bg-fire/10 border border-fire/30 rounded-xl p-3"
                     >
-                      <h3 className="font-serif text-lg text-accent mb-3">Remedies / 化解建议</h3>
+                      <h3 className="font-serif text-lg text-accent mb-3">化解建议 (Remedies)</h3>
                       <div className="flex flex-wrap gap-2">
                         {getTaiSuiRemedies(zodiac).map((advice, i) => (
                           <span key={i} className="px-3 py-1 bg-white rounded-full text-sm text-accent shadow-sm">
@@ -927,13 +927,13 @@ export default function BaziPage() {
                     <>
                       {/* Keyword */}
                       <div className="bg-gradient-to-br from-primary/90 to-water/80 rounded-2xl p-5 text-white">
-                        <p className="text-white/70 text-sm">Daily Keyword / 今日关键词</p>
+                        <p className="text-white/70 text-sm">今日关键词 (Daily Keyword)</p>
                         <p className="font-serif text-3xl font-bold mt-1">【{fortuneData.keyword}】</p>
                       </div>
 
                       {/* Eastern Analysis */}
                       <div className="bg-white rounded-2xl p-5 shadow-sm border border-secondary">
-                        <h3 className="font-serif text-lg text-accent mb-3">☯️ Eastern / 东方能量</h3>
+                        <h3 className="font-serif text-lg text-accent mb-3">☯️ 东方能量 (Eastern)</h3>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                           {fortuneData.eastern}
                         </p>
@@ -941,7 +941,7 @@ export default function BaziPage() {
 
                       {/* Western Analysis */}
                       <div className="bg-white rounded-2xl p-5 shadow-sm border border-secondary">
-                        <h3 className="font-serif text-lg text-accent mb-3">🌌 Western / 西方星示</h3>
+                        <h3 className="font-serif text-lg text-accent mb-3">🌌 西方星示 (Western)</h3>
                         <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
                           {fortuneData.western}
                         </p>
@@ -949,7 +949,7 @@ export default function BaziPage() {
 
                       {/* Radar */}
                       <div className="bg-white rounded-2xl p-5 shadow-sm border border-secondary">
-                        <h3 className="font-serif text-lg text-accent mb-3">📊 Energy Radar / 能量雷达</h3>
+                        <h3 className="font-serif text-lg text-accent mb-3">📊 能量雷达 (Energy)</h3>
                         <div className="space-y-3">
                           {fortuneData.radar.map((item, idx) => (
                             <div key={idx} className="flex items-center gap-3">
@@ -972,22 +972,22 @@ export default function BaziPage() {
 
                       {/* Booster */}
                       <div className="bg-gradient-to-br from-water/20 to-primary/20 rounded-2xl p-5 border border-water/30">
-                        <h3 className="font-serif text-lg text-accent mb-3">🍀 Lucky Boosters / 每日开运</h3>
+                        <h3 className="font-serif text-lg text-accent mb-3">🍀 每日开运 (Lucky Boosters)</h3>
                         <div className="grid grid-cols-2 gap-3 text-sm">
                           <div className="bg-white/50 rounded-lg p-3">
-                            <p className="text-muted-foreground text-xs">Lucky Color / 幸运色</p>
+                            <p className="text-muted-foreground text-xs">幸运色 (Color)</p>
                             <p className="font-medium text-accent">{fortuneData.booster.color}</p>
                           </div>
                           <div className="bg-white/50 rounded-lg p-3">
-                            <p className="text-muted-foreground text-xs">Lucky Number / 幸运数字</p>
+                            <p className="text-muted-foreground text-xs">幸运数字 (Number)</p>
                             <p className="font-medium text-accent">{fortuneData.booster.number}</p>
                           </div>
                           <div className="bg-white/50 rounded-lg p-3">
-                            <p className="text-muted-foreground text-xs">Direction / 幸运方位</p>
+                            <p className="text-muted-foreground text-xs">幸运方位 (Direction)</p>
                             <p className="font-medium text-accent">{fortuneData.booster.direction}</p>
                           </div>
                           <div className="bg-white/50 rounded-lg p-3">
-                            <p className="text-muted-foreground text-xs">Item / 开运物</p>
+                            <p className="text-muted-foreground text-xs">开运物 (Item)</p>
                             <p className="font-medium text-accent">{fortuneData.booster.item}</p>
                           </div>
                         </div>
@@ -995,7 +995,7 @@ export default function BaziPage() {
 
                       {/* Avoidance */}
                       <div className="bg-fire/10 border border-fire/30 rounded-2xl p-5">
-                        <h3 className="font-serif text-lg text-accent mb-3">🚫 Avoidances / 避坑指南</h3>
+                        <h3 className="font-serif text-lg text-accent mb-3">🚫 避坑指南 (Avoidances)</h3>
                         <ul className="space-y-2">
                           {fortuneData.avoidance.map((item, i) => (
                             <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
@@ -1008,7 +1008,7 @@ export default function BaziPage() {
 
                       {/* Quote */}
                       <div className="bg-gradient-to-br from-accent/10 to-primary/10 rounded-2xl p-5 border border-accent/20">
-                        <h3 className="font-serif text-lg text-accent mb-3">💡 AI Quote / AI禅意寄语</h3>
+                        <h3 className="font-serif text-lg text-accent mb-3">💡 AI禅意寄语 (AI Quote)</h3>
                         <p className="text-sm text-muted-foreground italic leading-relaxed">
                           "{fortuneData.aiQuote}"
                         </p>
@@ -1248,7 +1248,7 @@ export default function BaziPage() {
                       <>
                         {/* Hexagram Display */}
                         <div className="bg-gradient-to-br from-primary/90 to-water/80 rounded-2xl p-5 text-white">
-                          <p className="text-white/70 text-sm">梅花易数 / Plum Blossom Hexagram</p>
+                          <p className="text-white/70 text-sm">梅花易数 (Plum Blossom Numerology)</p>
                           <div className="flex items-center justify-center gap-6 mt-4">
                             <div className="text-8xl font-serif">{hexagram.chinese}</div>
                             <div className="text-left">

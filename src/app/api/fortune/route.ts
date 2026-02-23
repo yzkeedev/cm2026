@@ -118,30 +118,37 @@ function generateFortuneText(
   const dayRelation = wuxingRelations[dayWuxing]
   const currentRelation = wuxingRelations[currentWuxing]
 
-  // 东方能量解读
+  // 东方能量解读 - 简化版
   let eastern = ''
   if (currentRelation?.overcomes === dayWuxing) {
-    eastern = `今日${todayGanzhi.stem}${todayGanzhi.branch}为${currentRelation.overcomes}气之${['午', '酉', '申'].includes(todayGanzhi.branch) ? '截脚克木' : '官星当令'}。对你的${bazi.dayStem}木而言，这是正官${['午', '酉', '申'].includes(todayGanzhi.branch) ? '制刃' : '坐禄'}之象。2026丙午年火气滔天，你这棵${bazi.dayStem}木容易被${currentWuxing}之火烤焦。今日的${todayGanzhi.stem}${todayGanzhi.branch}金如同寒流定心，帮助你在燥乱中找回专注。`
+    eastern = `今天是天时帮你的好日子！${todayGanzhi.stem}${todayGanzhi.branch}的能量正好能让你在工作和事业上表现突出。2026年是火年，天气比较燥热，但今天你有好运加持，适合把握机会，表现自己。`
   } else if (dayRelation?.generates === currentWuxing) {
-    eastern = `今日${todayGanzhi.stem}${todayGanzhi.branch}${dayWuxing}气生${currentWuxing}。对你的${bazi.dayStem}木而言，这是食伤泄秀之日。创意灵感丰富，适合艺术创作，但需注意表达方式。`
+    eastern = `今天适合发挥创意！你的想法会得到别人的认可，如果有艺术创作、设计之类的工作，今天会很顺利。表达自己时注意方式方法就好。`
   } else if (currentRelation?.overcomes === dayWuxing) {
-    eastern = `今日${todayGanzhi.stem}${todayGanzhi.branch}${currentWuxing}克${dayWuxing}。对你的${bazi.dayStem}木而言，这是财星显现之日，但金木相战，注意财务压力。`
+    eastern = `今天财运不错！但是要注意，可能会有一些财务方面的压力或花销。控制好预算，不要冲动消费。`
   } else {
-    eastern = `今日${todayGanzhi.stem}${todayGanzhi.branch}气场平稳。对你的${bazi.dayStem}木而言，今日宜静心养性，不宜冒进。`
+    eastern = `今天是平稳的一天。不需要太激进，适合静下心来思考，或者做一些不需要太赶时间的事情。顺其自然就好。`
   }
 
-  // 西方星示
+  // 西方星示 - 简化版
   const zodiac = getWesternZodiac(birthDate.month, birthDate.day)
   const lifePath = calculateLifePathNumber(birthDate.year, birthDate.month, birthDate.day)
   const todayLifeNumber = getTodayLifeNumber(new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate())
   const lifeMeaning = LIFE_PATH_MEANINGS[lifePath]
   const todayLifeMeaning = LIFE_PATH_MEANINGS[todayLifeNumber]
 
-  const western = `你的太阳星座是${zodiac.sign}（${zodiac.element}相${zodiac.quality}）。今日星象显示${zodiac.element === '水' ? '情绪较为敏感' : zodiac.sign.includes('火') ? '行动力充沛' : '思维活跃'}。
+  const zodiacNotes: Record<string, string> = {
+    '水': '今天情绪比较敏感，容易想太多',
+    '火': '今天行动力很强，适合执行力',
+    '风': '今天思维活跃，适合动脑筋',
+    '土': '今天比较稳定，适合按计划来',
+  }
 
-生命灵数${lifePath}（${lifeMeaning}），今日灵数频率为${todayLifeNumber}（${todayLifeMeaning}）。在激进的2026年里，今天是你回归内在、修复关系的绝佳时机。`
+  const western = `你的太阳星座是${zodiac.sign}（${zodiac.element}元素，${zodiac.quality}星座）。${zodiacNotes[zodiac.element] || '今天状态不错'}。
 
-  // 能量雷达
+你的生命灵数是${lifePath}，代表${lifeMeaning}。今天的能量数字是${todayLifeNumber}，代表${todayLifeMeaning}。在2026年这个变化比较大的年份里，今天适合回归内心，多陪陪家人朋友。`
+
+  // 能量雷达 - 简化版
   const careerScore = currentRelation?.overcomes === dayWuxing ? 5 : currentRelation?.generates === dayWuxing ? 3 : 4
   const wealthScore = dayWuxing === '金' ? 2 : dayWuxing === '水' ? 4 : 3
   const loveScore = zodiac.element === '水' ? 4 : zodiac.sign.includes('蟹') ? 3 : 4
@@ -149,11 +156,11 @@ function generateFortuneText(
   const creativityScore = currentRelation?.generates === dayWuxing || zodiac.element === '风' ? 5 : 3
 
   const radar = [
-    { dimension: '事业', score: careerScore, note: currentRelation?.overcomes === dayWuxing ? '正官加持，职场威信极高' : '稳步推进，专注核心项目' },
-    { dimension: '财富', score: wealthScore, note: dayWuxing === '金' ? '金克木，财星受损，不宜大额投资' : '财富平稳，注意守财' },
-    { dimension: '感情', score: loveScore, note: zodiac.element === '水' ? '感性被理性压制，略有距离感' : '人际关系顺畅' },
-    { dimension: '健康', score: healthScore, note: currentWuxing === '火' ? '火旺金脆，注意嗓子/牙齿' : '状态平稳，注意休息' },
-    { dimension: '灵感', score: creativityScore, note: currentRelation?.generates === dayWuxing ? '逻辑思维强，适合架构设计' : '创意一般，务实为佳' },
+    { dimension: '事业 (Career)', score: careerScore, note: currentRelation?.overcomes === dayWuxing ? '运气好，适合表现自己' : '稳步推进，做好眼前事' },
+    { dimension: '财富 (Wealth)', score: wealthScore, note: dayWuxing === '金' ? '注意花销，别乱投资' : '收入稳定，注意存钱' },
+    { dimension: '感情 (Love)', score: loveScore, note: zodiac.element === '水' ? '今天有点敏感，多沟通' : '人缘好，适合社交' },
+    { dimension: '健康 (Health)', score: healthScore, note: currentWuxing === '火' ? '注意喉咙和牙齿' : '身体不错，适当运动' },
+    { dimension: '灵感 (Creativity)', score: creativityScore, note: currentRelation?.generates === dayWuxing ? '思维清晰，适合规划' : '保持平常心' },
   ]
 
   // 幸运色根据日干
@@ -184,28 +191,28 @@ function generateFortuneText(
     item: zodiac.element === '火' ? '金属饰品' : zodiac.element === '水' ? '水晶球' : '机械表',
   }
 
-  // 避坑指南
+  // 避坑指南 - 简化版
   const avoidance: string[] = []
   if (currentWuxing === '火' && dayWuxing === '金') {
-    avoidance.push('忌与人正面口角 - 火旺遇金日，一句话说错可能毁掉关系')
-    avoidance.push('忌剧烈运动 - 金木相克，关节易受伤')
+    avoidance.push('今天说话要小心 - 容易得罪人')
+    avoidance.push('运动要适量 - 容易受伤')
   }
   if (dayWuxing === '金') {
-    avoidance.push('忌熬夜 - 金日耗肝血，晚11点前入睡')
-    avoidance.push('忌冲动决策 - 正官当令，约束为主')
+    avoidance.push('早点睡觉 - 熬夜伤身体')
+    avoidance.push('别冲动做决定 - 三思而后行')
   }
-  avoidance.push('忌穿红色 - 2026火年本已燥热')
+  avoidance.push('穿衣服要注意 - 红色太招摇')
 
-  // AI寄语
+  // AI寄语 - 简化版
   const quotes = [
-    '在赤马年的烈焰中，唯有守住秩序的寒冰，方能雕刻出栋梁之才。',
-    '火烈则木焦，金裁则木成。今日的寂静与规矩是你最好的护身符。',
-    '2026年的喧嚣中，让自己成为那潭静水，以不变应万变。',
+    '2026年是变化的一年，慢慢来，别着急。',
+    '今天的安静，是为了明天更好地出发。',
+    '保持好心情，好运自然来。',
   ]
   const aiQuote = quotes[Math.floor((stemIndex + branchIndex) / 2) % quotes.length]
 
-  // 关键词
-  const keywords = ['官星修剪', '秩序重建', '定心养性', '静水深流', '破局', '沉潜', '蓄势', '绸缪']
+  // 关键词 - 简化版
+  const keywords = ['把握机会', '稳扎稳打', '内心平静', '顺势而为', '突破', '沉淀', '积累', '准备']
   const keyword = keywords[(stemIndex + branchIndex + birthDate.day) % keywords.length]
 
   return {

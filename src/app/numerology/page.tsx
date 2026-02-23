@@ -195,6 +195,37 @@ export default function NumerologyPage() {
   const [reading, setReading] = useState<NumerologyReading | null>(null)
   const [activeTab, setActiveTab] = useState<TabType>('overview')
 
+  // AI Analysis state
+  const [aiAnalysis, setAiAnalysis] = useState<string | null>(null)
+  const [aiLoading, setAiLoading] = useState(false)
+
+  // AI Analysis handler
+  const handleAiAnalysis = async () => {
+    if (!reading) return
+    setAiLoading(true)
+    try {
+      const response = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'numerology',
+          lifePath: reading.lifePath,
+          expression: reading.expression,
+          soulUrge: reading.soulUrge,
+          personality: reading.personality
+        })
+      })
+      const result = await response.json()
+      if (result.success) {
+        setAiAnalysis(result.data.analysis)
+      }
+    } catch (error) {
+      console.error('AI Analysis failed:', error)
+    } finally {
+      setAiLoading(false)
+    }
+  }
+
   const handleCalculate = () => {
     if (!name.trim()) {
       alert("請輸入您的姓名 / Please enter your name")
@@ -497,6 +528,56 @@ export default function NumerologyPage() {
             >
               重新分析 / Try Again
             </motion.button>
+
+            {/* AI Analysis */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-4 space-y-3"
+            >
+              {!aiAnalysis && !aiLoading && (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleAiAnalysis}
+                  className="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-medium shadow-md"
+                >
+                  🔮 AI智能解读
+                </motion.button>
+              )}
+
+              {aiLoading && (
+                <div className="bg-white rounded-2xl p-8 text-center">
+                  <div className="animate-spin w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full mx-auto mb-4" />
+                  <p className="text-muted-foreground">AI正在分析...</p>
+                </div>
+              )}
+
+              {aiAnalysis && (
+                <div className="bg-white rounded-2xl p-4 shadow-md">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-serif text-lg text-emerald-700">🔮 AI深度解读</h3>
+                    <button
+                      onClick={() => setAiAnalysis(null)}
+                      className="text-muted-foreground text-sm hover:text-emerald-500"
+                    >
+                      关闭
+                    </button>
+                  </div>
+                  <div className="prose prose-sm max-w-none text-muted-foreground whitespace-pre-wrap">
+                    {aiAnalysis}
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleAiAnalysis}
+                    className="w-full mt-4 py-2 bg-emerald-100 text-emerald-700 rounded-lg text-sm font-medium"
+                  >
+                    🔄 重新解读
+                  </motion.button>
+                </div>
+              )}
+            </motion.div>
           </motion.div>
         </AnimatePresence>
       )}
